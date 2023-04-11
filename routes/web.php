@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [GuestHomeController::class, 'index']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth')->name('dashboard');
+Route::get('/dashboard', [AdminHomeController::class, 'index'])
+->middleware('auth')->name('dashboard');
 
 Route::middleware('auth')
 ->prefix('profile')
