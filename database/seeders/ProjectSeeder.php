@@ -22,10 +22,10 @@ class ProjectSeeder extends Seeder
         for($i = 0; $i < 50; $i++){
             
             $project = new Project;
-            $project->titile = $faker-> catchPhrase();
+            $project->title = $faker-> catchPhrase();
             $project->slug = Str::of($project->title)->slug('-');
             $project->thumbnail = $faker->imageUrl(640, 480, 'homepage', true);
-            $project->details = $faker->paragraph(15);
+            $project->details = $faker->paragraph(10);
 
             $project-> save();
 
