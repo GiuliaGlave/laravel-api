@@ -3,10 +3,8 @@
 @section('title', 'Project List')
 @section('content')
 <div class="container">
-
-    <h1>tabella lista progetti</h1>
-
-        <table class="table table-striped">
+        <a class="btn btn-primary my-3" href="{{ route('admin.projects.create') }}">Nuovo progetto</a>
+        <table class="table table-striped mt-5">
         <thead>
             <tr>
                 <th scope="col">ID</th>
