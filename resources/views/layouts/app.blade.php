@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     {{-- icons --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    @yield('cdn')
     <!-- Usando Vite -->
     @vite(['resources/js/app.js','resources/js/app.js'])
 </head>

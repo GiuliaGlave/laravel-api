@@ -13,9 +13,16 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $projects = Project::paginate(10);
+
+        if($request->has('term')){
+            $term = $request->get('term');
+            $projects = Project::where('title', 'LIKE', "%$term%")->paginate(10)->withQueryString();
+        } else {
+            $projects = Project::paginate(10);
+        }
         return view('admin.projects.index', compact('projects'));
     }
 
