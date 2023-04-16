@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-5">
                 <label for="title" class="form-label">Titolo</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" />
+                <input type="text" class="form-control" id="title" name="title" value="{{ old('name') }}" />
             </div>
             <div class="col-5">
                 <label for="thumbnail" class="form-label">URL immagine di anteprima</label>
