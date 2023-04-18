@@ -22,15 +22,30 @@
         <div class="row">
             <div class="col-5">
                 <label for="title" class="form-label">Titolo</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{ old('name') }}" />
+                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('name') }}"/>
+                 @error('title') 
+                    <div class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                    @enderror
             </div>
             <div class="col-5">
                 <label for="thumbnail" class="form-label">URL immagine di anteprima</label>
-                <input type="text" class="form-control" id="thumbnail" name="thumbnail"
+                <input type="text" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail"
                     value="{{ old('thumbnail') }}" />
+                    @error('thumbnail') 
+                    <div class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                    @enderror
             </div>
             
-            <textarea class="col-6 mt-3 ms-3" name="details" id="details" placeholder="Descrizione">{{ old('details') }}</textarea>
+            <textarea class="col-6 mt-3 ms-3 @error('details') is-invalid @enderror" name="details" id="details" placeholder="Descrizione">{{ old('details') }}</textarea>
+             @error('details') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <button type="submit" class="btn btn-primary mt-4">Salva</button>

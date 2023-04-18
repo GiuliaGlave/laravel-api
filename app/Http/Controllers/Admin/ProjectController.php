@@ -44,6 +44,24 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        //VALIDATOR
+        $request->validate([
+            'title' => 'nullable|string|max:50',
+            'thumbnail' => 'nullable|string',
+            'details' => 'nullable|string',
+
+        ],
+        [
+    
+            'title.max' => 'inserire titolo di max 50 caratteri',
+
+            'thumbnail.string' => 'il link dell\'immagine deve essere una stringa',
+            
+            'details.string' => 'il testo deve contenere una stringa',
+        
+        ]);
+
+
         $data = $request->all();
 
         $project = new Project;
