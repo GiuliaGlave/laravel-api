@@ -5,7 +5,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container text-dark">
    
      <a href="{{ route('admin.projects.index') }}" class="btn btn-primary my-4">Torna ai progetti</a>
     <div class="card">

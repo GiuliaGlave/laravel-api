@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
@@ -44,25 +45,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //VALIDATOR
-        $request->validate([
-            'title' => 'nullable|string|max:50',
-            'thumbnail' => 'nullable|string',
-            'details' => 'nullable|string',
-
-        ],
-        [
-    
-            'title.max' => 'inserire titolo di max 50 caratteri',
-
-            'thumbnail.string' => 'il link dell\'immagine deve essere una stringa',
-            
-            'details.string' => 'il testo deve contenere una stringa',
-        
-        ]);
-
-
-        $data = $request->all();
+       $data = $this->validation($request->all());
 
         $project = new Project;
         $project->fill($data);
@@ -91,7 +74,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -103,7 +86,11 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $data = $this->validation($request->all(), $project->id);
+
+        $project->update($data);
+        return to_route("admin.projects.show", $project);
+
     }
 
     /**
@@ -115,5 +102,31 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
+    }
+
+    //VALIDATOR
+    private function validation($data, $id = null){
+        
+        $validator= Validator::make(
+             $data,
+            [
+            'title' => 'nullable|string|max:50',
+            'thumbnail' => 'nullable|string',
+            'details' => 'nullable|string',
+
+            ],
+            [
+    
+            'title.max' => 'inserire titolo di max 50 caratteri',
+
+            'thumbnail.string' => 'il link dell\'immagine deve essere una stringa',
+            
+            'details.string' => 'il testo deve contenere una stringa',
+        
+            ]
+        )->validate();
+
+        return $validator;
+        
     }
 }
