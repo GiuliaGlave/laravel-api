@@ -29,7 +29,10 @@
         <main class="container">
             @yield('content')
         </main>
+
     </div>
+
+    @yield('modals')
 </body>
 
 </html>

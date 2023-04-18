@@ -35,16 +35,16 @@
                     <td>{{ $project->title }}</td>
                     <td>{{ $project->slug }}</td>
                     
-                    <td class="d-flex justify-content-between">
-                        <a href={{ route('admin.projects.show', $project) }}>
+                    <td class="d-flex justify-content-around">
+                        <a  href={{ route('admin.projects.show', $project) }}>
                             <i class="bi bi-eye"></i>
                         </a>
-                        <a href={{ route('admin.projects.edit', $project) }}>
+                        <a  href={{ route('admin.projects.edit', $project) }}>
                             <i class="bi bi-pencil"></i>
                         </a>
-                        <a href={{ route('admin.projects.show', $project) }}>
-                            <i class="bi bi-trash"></i>
-                        </a>
+
+                        <button class="btn-icon" data-bs-toggle="modal" data-bs-target="#delete-modal-{{$project->id}}"><i class="bi bi-trash"></i></button>
+                     
                     </td>
                 </tr>
             @endforeach
@@ -53,7 +53,36 @@
 
     <div class="text-light ">
       {{$projects->links('pagination::bootstrap-5')}}   
-    </div>
-   
-</div>
+    </div> 
+</div>                      
+                
+ @section('modals')
+    @foreach($projects as $project)
+        <div class="modal fade text-dark" id="delete-modal-{{$project->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Elimina "{{$project->title}}"</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Attenzione! L'operazione non è reversibile
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                
+                <form action="{{ route('admin.projects.destroy', $project) }}" method="POST" class="text-danger">              
+                    @method('delete') 
+                    @csrf
+
+                   <button type="submit" class="btn btn-danger">Ok</button>
+                </form>
+
+                </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+@endsection
+
 @endsection
