@@ -20,7 +20,7 @@
 
             <div class="row">
                 <div class="col col-6 p-0">
-                    <img class="w-100" src="{{asset('storage/' . $project->thumbnail)}}" alt="anteprima">
+                    <img class="w-100" src="{{$project->getPlaceholder()}}" alt="anteprima">
                 </div>
                 <div class="col col-6 p-3">
                     <h6><strong>Descrizione:</strong></h6>

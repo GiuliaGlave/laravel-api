@@ -57,7 +57,7 @@ class ProjectController extends Controller
             
             if (Arr::exists($data, 'thumbnail')) {
             $path = Storage::put('uploads/projects', $data['thumbnail']);
-            $data['image'] = $path;
+            $data['thumbnail'] = $path;
         }
 
         $project = new Project;
@@ -102,7 +102,7 @@ class ProjectController extends Controller
         $data = $this->validation($request->all(), $project->id);
 
         if (Arr::exists($data, 'thumbnail')) {
-            if ($project->thumbnail) Storage::delete($project->thumbnail);
+            if ($project->thumbnail) Storage::delete($project->thumbnail); //quando carichiamo un immagine se già ne esiste una cancellaLA
             $path = Storage::put('uploads/projects', $data['thumbnail']);
             $data['thumbnail'] = $path;
         }
@@ -121,6 +121,7 @@ class ProjectController extends Controller
    
      public function destroy(Project $project)
     {
+        if ($project->thumbnail) Storage::delete($project->thumbnail);
         $project->delete();
         return to_route('admin.projects.index');
     }

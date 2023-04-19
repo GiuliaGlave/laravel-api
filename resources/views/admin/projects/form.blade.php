@@ -47,9 +47,9 @@
                 <div class="d-flex flex-column mt-2">
                 <label for="thumbnail" class="form-label">URL immagine di anteprima</label>
                 <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail"
-                   {{--  value="{{ old('thumbnail') ?? $project->thumbnail}}" --}} />
-                   <div>
-                        <img src="{{$project->thumbnail}}" alt="" class="w-100 mt-3">
+                   {{-- value="{{ old('thumbnail') ?? $project->thumbnail}}" --}} />
+                   <div class="mt-3">
+                         <img class="w-100" src="{{$project->getPlaceholder()}}" alt="anteprima" >
                     </div>
                     @error('thumbnail') 
                     <div class="invalid-feedback">

@@ -24,7 +24,7 @@ class ProjectSeeder extends Seeder
             $project = new Project;
             $project->title = $faker-> catchPhrase(50);
             $project->slug = Str::of($project->title)->slug('-');
-            $project->thumbnail = $faker->imageUrl(640, 480, 'homepage', true);
+           /*  $project->thumbnail = $faker->imageUrl(640, 480, 'homepage', true); */
             $project->details = $faker->paragraph(10);
 
             $project-> save();
