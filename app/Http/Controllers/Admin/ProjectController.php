@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -47,6 +49,16 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
        $data = $this->validation($request->all());
+      /*  $data = $request->all(); */
+
+         /*    if(Arr::exists($data, 'thumbnail')) {
+            $path = Storage::put('', $data['thumbnail']);
+            $data['thumbnail'] = $path; */
+            
+            if (Arr::exists($data, 'thumbnail')) {
+            $path = Storage::put('uploads/projects', $data['thumbnail']);
+            $data['image'] = $path;
+        }
 
         $project = new Project;
         $project->fill($data);
@@ -89,6 +101,12 @@ class ProjectController extends Controller
     {
         $data = $this->validation($request->all(), $project->id);
 
+        if (Arr::exists($data, 'thumbnail')) {
+            if ($project->thumbnail) Storage::delete($project->thumbnail);
+            $path = Storage::put('uploads/projects', $data['thumbnail']);
+            $data['thumbnail'] = $path;
+        }
+
         $project->update($data);
         return to_route("admin.projects.show", $project);
 
@@ -111,10 +129,10 @@ class ProjectController extends Controller
     private function validation($data, $id = null){
         
         $validator= Validator::make(
-             $data,
+            $data,
             [
             'title' => 'nullable|string|max:50',
-            'thumbnail' => 'nullable|string',
+            'thumbnail' => 'nullable|image|mimes:jpg,png,jpeg',
             'details' => 'nullable|string',
 
             ],
@@ -122,7 +140,8 @@ class ProjectController extends Controller
     
             'title.max' => 'inserire titolo di max 50 caratteri',
 
-            'thumbnail.string' => 'il link dell\'immagine deve essere una stringa',
+            'thumbnail.string' => 'il file deve essere un\'immagine',
+            'thumbnail.mimes' => 'sono ammessi formati jpg , png e jpeg',
             
             'details.string' => 'il testo deve contenere una stringa',
         
@@ -130,6 +149,6 @@ class ProjectController extends Controller
         )->validate();
 
         return $validator;
-        
+ 
     }
 }

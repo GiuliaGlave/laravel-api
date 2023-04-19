@@ -1,17 +1,12 @@
 @extends('layouts.app')
 
-@section('title', ($project->id) ? 'Modifica progetto' : 'Nuovo progetto')
+@section('title', 'Modifica progetto')
 
 @section('content')
 
     <a class="btn btn-primary my-4" href="{{ route('admin.projects.index') }}">Torna ai progetti</a>
-   
-   @if($project->id)
-        <h1 class='my-4'> Modifica "{{$project->title}}"</h1>
-    @else 
-        <h1 class='my-4'> Crea un nuovo progetto</h1>
-    @endif
-   
+
+    <h1 class='my-4'> Modifica "{{$project->title}}"</h1>
     @if ($errors->any())
         <div class="alert alert-danger">
             <h4>Attenzione: </h4>
@@ -23,7 +18,7 @@
         </div>
     @endif
 
-    @if($project->id) {{-- se il post ha un id è una modifica altrimenti è una creazione --}}
+    @if($project->id)
     <form action="{{ route('admin.projects.update', $project) }}" enctype="multipart/form-data" method="POST">
         @method('PUT')
     @else 
@@ -46,8 +41,8 @@
 
                 <div class="d-flex flex-column mt-2">
                 <label for="thumbnail" class="form-label">URL immagine di anteprima</label>
-                <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail"
-                   {{--  value="{{ old('thumbnail') ?? $project->thumbnail}}" --}} />
+                <input type="text" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail"
+                    value="{{ old('thumbnail') ?? $project->thumbnail}}" />
                    <div>
                         <img src="{{$project->thumbnail}}" alt="" class="w-100 mt-3">
                     </div>
