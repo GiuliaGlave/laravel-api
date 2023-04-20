@@ -63,16 +63,16 @@
 
                 <div class="mt-1">
                     <label for="type_id" class="form-label">Categoria</label>
-                    <select class="form-select" @error('type_id') is-invalid @enderror" id="type_id" name="type_id" aria-label="Default select example">
-                       {{--  <option selected>Nessuna categoria</option> --}}
+                    <select class="form-select" @error('type_id') is-invalid @enderror id="type_id" name="type_id" aria-label="Default select example">
+                    
                         <option value="">Nessuna categoria</option>
                          
                         @foreach($types as $type)
                         <option @if(old('type_id') == $type->id) selected @endif value="{{ $type->id }}">{{ $type->label }}</option>
                         @endforeach
-                        {{-- prova errore --}}
-                        {{-- <option value="10">Prova errore</option> --}}
+                       
                      </select>
+                     
                      @error('type_id')
                      <div class="invalid-feedback">
                        {{ $message }}
