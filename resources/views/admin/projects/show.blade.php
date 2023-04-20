@@ -23,7 +23,7 @@
                     <img class="w-100" src="{{$project->getPlaceholder()}}" alt="anteprima">
                 </div>
                 <div class="col col-6 p-3">
-                    <h6><strong>Categoria:</strong><span class="badge ms-1" style="background-color:{{$project->type?->color}}"> {{ $project->type?->label }}</span></h6>
+                    <h6><strong>Categoria: </strong><span class="badge ms-1" style="background-color:{{$project->type?->color}}"> {{ $project->type?->label }}</span></h6>
                     
                     <h6><strong>Descrizione:</strong></h6>
                     <p class="card-text">{{ $project->details }}</p>
