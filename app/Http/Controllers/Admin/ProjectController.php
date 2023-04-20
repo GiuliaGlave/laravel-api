@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
@@ -37,7 +38,8 @@ class ProjectController extends Controller
     public function create()
     {
         $project = new Project;
-        return view('admin.projects.form', compact('project'));
+        $types = Type::orderBy('label')->get();
+        return view('admin.projects.form', compact('project', 'types'));
     }
 
     /**
@@ -87,7 +89,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.form', compact('project'));
+         $types = Type::orderBy('label')->get();
+        return view('admin.projects.form', compact('project', 'types'));
     }
 
     /**
@@ -135,6 +138,7 @@ class ProjectController extends Controller
             'title' => 'nullable|string|max:50',
             'thumbnail' => 'nullable|image|mimes:jpg,png,jpeg',
             'details' => 'nullable|string',
+            'type_id' => 'nullable|exists:types,id',
 
             ],
             [
@@ -145,6 +149,8 @@ class ProjectController extends Controller
             'thumbnail.mimes' => 'sono ammessi formati jpg , png e jpeg',
             
             'details.string' => 'il testo deve contenere una stringa',
+            
+            'type_id.exists' => 'L\'id della categoria non esiste',
         
             ]
         )->validate();

@@ -8,9 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'slug', 'thumbnail', 'details'];
+    protected $fillable = ['title', 'slug', 'thumbnail', 'details', 'type_id'];
 
     public function getPlaceholder(){
         return $this->thumbnail ? asset('storage/' . $this->thumbnail) : "https://blumagnolia.ch/wp-content/uploads/2021/05/placeholder-126.png";
+    }
+
+    //Relazioni
+    public function type() {
+        return $this->belongsTo(Type::class);
     }
 }

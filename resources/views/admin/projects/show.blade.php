@@ -23,9 +23,13 @@
                     <img class="w-100" src="{{$project->getPlaceholder()}}" alt="anteprima">
                 </div>
                 <div class="col col-6 p-3">
+                    <h6><strong>Categoria:</strong><span class="card-text"> {{ $project->type?->label }}</span></h6>
+                    
                     <h6><strong>Descrizione:</strong></h6>
                     <p class="card-text">{{ $project->details }}</p>
                 </div>
+
+            
             </div>
         </div>
     </div>
