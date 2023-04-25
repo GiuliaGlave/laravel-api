@@ -16,7 +16,7 @@ class TypeSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-         $labels = ['Backoffice', 'Game', 'Website', 'E-commerce', 'To-do list', 'One-page layout', 'Web App'];
+        $labels = ['Backoffice', 'Game', 'Website', 'E-commerce', 'To-do list', 'One-page layout', 'Web App'];
 
         foreach($labels as $label) {
             $type = new Type();
