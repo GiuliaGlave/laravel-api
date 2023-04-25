@@ -10,7 +10,7 @@ class Project extends Model
     use HasFactory;
     protected $fillable = ['title', 'slug', 'thumbnail', 'details', 'type_id'];
     
-    protected $with = ['type','technologies'];
+  /*   protected $with = ['type','technologies']; */
 
     public function getPlaceholder(){
         return $this->thumbnail ? asset('storage/' . $this->thumbnail) : "https://blumagnolia.ch/wp-content/uploads/2021/05/placeholder-126.png";
