@@ -8,6 +8,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 use App\Models\Project;
+use App\Models\Technology;
+
 use Faker\Generator as Faker;
 
 class ProjectSeeder extends Seeder
@@ -19,12 +21,16 @@ class ProjectSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
+        $technology= Technology::all();
+        
         for($i = 0; $i < 50; $i++){
             
             $project = new Project;
+
+            $project->id_technology = 
             $project->title = $faker-> catchPhrase(50);
             $project->slug = Str::of($project->title)->slug('-');
-           /*  $project->thumbnail = $faker->imageUrl(640, 480, 'homepage', true); */
+            /*  $project->thumbnail = $faker->imageUrl(640, 480, 'homepage', true); */
             $project->details = $faker->paragraph(10);
 
             $project-> save();
