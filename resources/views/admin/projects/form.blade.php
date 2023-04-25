@@ -83,28 +83,20 @@
                         
                     </select>
                 </div>
-                {{-- technologies --}}
-                <div class="mt-1">
-                    <label for="technology_id" class="form-label">Tecnologia</label>
-                    <select class="form-select" @error('technology_id') is-invalid @enderror id="technology_id" name="technology_id" aria-label="Default select example">
-                    
-                        <option value="">Nessuna tecnologia</option>
-                         
-                        @foreach($technologies as $technology)
-                        <option @if(old('technology_id') == $technology->id) selected @endif value="{{ $technology->id }}">{{ $technology->label }}</option>
-                        @endforeach
-                       
-                     </select>
-                     
-                     @error('technology_id')
-                     <div class="invalid-feedback">
-                       {{ $message }}
-                     </div>
-                     @enderror
 
-                        
-                    </select>
+                {{-- technologies --}}
+                <div>
+                    @foreach ($technologies as $technology)                  
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="technology-{{$technology->id}}" value="{{$technology->id}}" name="technologies[]">
+                        {{-- se l'id è tra quelli di associati al post allora check  --}}
+                        @if(in_array($technology->id, old("technologies", $project_technogies ?? []))) checked 
+                        @endif
+                        <label class="form-check-label" for="technology-{{$technology->id}}">{{$technology->label}}</label>
+                    </div>
+                    @endforeach   
                 </div>
+                
 
                 {{-- details --}}
                 <div class="details mt-3">

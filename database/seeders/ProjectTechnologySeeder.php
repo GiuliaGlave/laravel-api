@@ -24,7 +24,7 @@ class ProjectTechnologySeeder extends Seeder
          for($i = 1; $i < 50; $i++){
             
             $project = Project::find($i);
-            $project->technologies()->attach($faker->randomElements($technologies, 3));
+            $project->technologies()->attach($faker->randomElements($technologies, random_int(0, 3)));
             
 
 

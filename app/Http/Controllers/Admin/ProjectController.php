@@ -40,6 +40,7 @@ class ProjectController extends Controller
     {
         $project = new Project;
         $types = Type::orderBy('label')->get();
+
         $technologies = Technology::orderBy('label')->get();
         return view('admin.projects.form', compact('project', 'types', 'technologies'));
     }
@@ -68,6 +69,7 @@ class ProjectController extends Controller
         $project->fill($data);
        
         $project->save();
+        if(Arr::exists($data, "technologies")) $project->technologies()->attach($data["technologies"]);
 
         return to_route("admin.projects.show", $project);
     }
@@ -93,7 +95,9 @@ class ProjectController extends Controller
     {
          $types = Type::orderBy('label')->get();
          $technologies = Technology::orderBy('label')->get();
-        return view('admin.projects.form', compact('project', 'types','technologies'));
+
+        $project_technologies = $project->technologies->pluck('id')->toArray();
+        return view('admin.projects.form', compact('project', 'types','technologies', 'project_technologies'));
     }
 
     /**
@@ -106,7 +110,11 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $data = $this->validation($request->all(), $project->id);
-
+ //se esiste l'array data con la hiave technologies, effettua il sync, altrimenti elmina tutte le associazioni esistenti
+        if(Arr::exists($data, 'technologies'))
+            $project->technologies()->sync($data ['technologies']);
+        else 
+            $project->technologies()->detach();
         if (Arr::exists($data, 'thumbnail')) {
             if ($project->thumbnail) Storage::delete($project->thumbnail); //quando carichiamo un immagine se già ne esiste una cancellaLA
             $path = Storage::put('uploads/projects', $data['thumbnail']);
@@ -114,6 +122,10 @@ class ProjectController extends Controller
         }
 
         $project->update($data);
+
+       
+
+
         return to_route("admin.projects.show", $project);
 
     }
