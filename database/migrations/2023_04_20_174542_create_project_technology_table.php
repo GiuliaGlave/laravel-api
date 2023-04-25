@@ -13,23 +13,27 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('projects_technologies', function (Blueprint $table) {
+        Schema::create('project_technology', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('project_id')
+           $table->foreignId("project_id")
+           ->constrained()
+           ->cascadeOnDelete();
+
+            $table->foreignId("technology_id")
             ->constrained()
             ->cascadeOnDelete();
             
         });
     }
 
-    /**
+ /**
      * Reverse the migrations.
      *
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('project_technologies');
+        Schema::dropIfExists('project_technology');
     }
 };
