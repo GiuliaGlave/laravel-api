@@ -30,7 +30,14 @@
                     {{-- types --}}
                     <h6><strong>Categoria: </strong><span class="badge ms-1" style="background-color:{{$project->type?->color}}"> {{ $project->type?->label }}</span></h6>
                     {{-- technologies --}}
-                    <h6><strong>Tecnologie: </strong><span class="badge ms-1" style="background-color:{{$project->technology?->color}}"> {{ $project->technology?->label }}</span></h6>
+                    <h6><strong>Tecnologie: </strong><span class="badge ms-1 text-dark"> 
+                        @forelse ($project->technologies as $technology)
+                        {{ $technology?->label }}
+                        {{-- per levare la virgola all'ultimo elemento --}}
+                        @if(!$loop->last) ,  @endif 
+                        @empty
+                        -
+                        @endforelse </span></h6>
                     {{-- details --}}
                     <h6><strong>Descrizione:</strong></h6>
                     <p class="card-text">{{ $project->details }}</p>

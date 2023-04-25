@@ -42,7 +42,19 @@
                     {{-- types --}}
                     <td></strong><span class="badge ms-1" style="background-color:{{$project->type?->color}}"> {{ $project->type?->label }}</span></td>
                     {{-- tecnologies --}}
-                    <td></strong><span class="badge ms-1" style="background-color:{{$project->technology?->color}}"> {{ $project->technology?->label }}</span></td>
+                    <td>
+                        </strong><span class="badge ms-1 text-dark" >
+                         @forelse ($project->technologies as $technology)
+                        {{ $technology?->label }} 
+                        
+                        {{-- per levare la virgola all'ultimo elemento --}}
+                        @if(!$loop->last) ,  @endif
+
+                        @empty
+                        -
+                        @endforelse
+                        
+                    </span></td>
                     
                     {{-- actions --}}
                     <td class="d-flex justify-content-around">
