@@ -29,6 +29,7 @@ Route::middleware('auth')
 ->group(function(){
     Route::resource('projects', ProjectController::class);
     Route::resource('types', TypeController::class);
+    Route::resource('technologies', TechnologyController::class);
 });
 
 Route::middleware('auth')

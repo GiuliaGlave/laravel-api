@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
@@ -39,7 +40,8 @@ class ProjectController extends Controller
     {
         $project = new Project;
         $types = Type::orderBy('label')->get();
-        return view('admin.projects.form', compact('project', 'types'));
+        $technologies = Technology::orderBy('label')->get();
+        return view('admin.projects.form', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -90,7 +92,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
          $types = Type::orderBy('label')->get();
-        return view('admin.projects.form', compact('project', 'types'));
+         $technologies = Technology::orderBy('label')->get();
+        return view('admin.projects.form', compact('project', 'types','technologies'));
     }
 
     /**
@@ -139,6 +142,7 @@ class ProjectController extends Controller
             'thumbnail' => 'nullable|image|mimes:jpg,png,jpeg',
             'details' => 'nullable|string',
             'type_id' => 'nullable|exists:types,id',
+            'technology_id' => 'nullable|exists:technologies,id',
 
             ],
             [
@@ -151,6 +155,7 @@ class ProjectController extends Controller
             'details.string' => 'il testo deve contenere una stringa',
             
             'type_id.exists' => 'L\'id della categoria non esiste',
+            'technology_id.exists' => 'L\'id della tecnologia non esiste',
         
             ]
         )->validate();

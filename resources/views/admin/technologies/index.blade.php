@@ -26,25 +26,17 @@
                 <th scope="col">Titolo</th>
                 <th scope="col">Slug</th>
                 <th scope="col">Categoria</th>
-                <th scope="col">Tecnologie</th>
                 <th scope="col">Azioni</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($projects as $project)
                 <tr>
-                    {{-- id --}}
                     <th scope="row">{{ $project->id }}</th>
-                    {{-- title --}}
                     <td>{{ $project->title }}</td>
-                    {{-- slug --}}
                     <td>{{ $project->slug }}</td>
-                    {{-- types --}}
                     <td></strong><span class="badge ms-1" style="background-color:{{$project->type?->color}}"> {{ $project->type?->label }}</span></td>
-                    {{-- tecnologies --}}
-                    <td></strong><span class="badge ms-1" style="background-color:{{$project->technology?->color}}"> {{ $project->technology?->label }}</span></td>
                     
-                    {{-- actions --}}
                     <td class="d-flex justify-content-around">
                         <a  href={{ route('admin.projects.show', $project) }}>
                             <i class="bi bi-eye"></i>

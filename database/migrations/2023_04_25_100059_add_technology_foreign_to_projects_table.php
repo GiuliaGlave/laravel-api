@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('projects', function (Blueprint $table) {
             $table->foreignId('technology_id')
-             ->after('id')
+            ->after('type_id')
             ->nullable()
             ->constrained();
 
