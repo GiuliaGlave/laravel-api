@@ -15,6 +15,9 @@ class Project extends Model
     public function getPlaceholder(){
         return $this->thumbnail ? asset('storage/' . $this->thumbnail) : "https://blumagnolia.ch/wp-content/uploads/2021/05/placeholder-126.png";
     }
+    public function getAbstract($max = 150){
+        return substr($this->details, 0, $max) . "[...]";
+    }
 
     //Relazioni
     public function type() {

@@ -20,6 +20,10 @@ class ProjectController extends Controller
         ->with('technologies', 'type')
         ->paginate(10);
 
+        foreach($projects as $project){
+            $project->details = $project->getAbstract();
+        }
+
         return response()->json($projects);
     }
 
