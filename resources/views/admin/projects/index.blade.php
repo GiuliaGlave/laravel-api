@@ -24,7 +24,7 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Titolo</th>
-                <th scope="col">Slug</th>
+                <th scope="col">Descrizione</th>
                 <th scope="col">Categoria</th>
                 <th scope="col">Tecnologie</th>
                 <th scope="col">Azioni</th>
@@ -38,7 +38,7 @@
                     {{-- title --}}
                     <td>{{ $project->title }}</td>
                     {{-- slug --}}
-                    <td>{{ $project->slug }}</td>
+                    <td>{{ $project->getAbstractIndex() }}</td>
                     {{-- types --}}
                     <td></strong><span class="badge ms-1" style="background-color:{{$project->type?->color}}"> {{ $project->type?->label }}</span></td>
                     {{-- tecnologies --}}
@@ -74,7 +74,7 @@
     </table>
 
     <div class="text-light ">
-      {{$projects->links('pagination::bootstrap-5')}}   
+      {{$projects->links()}}   
     </div> 
 </div>                      
                 

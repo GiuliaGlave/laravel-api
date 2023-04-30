@@ -20,15 +20,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [GuestHomeController::class, 'index'])->name('guest');
+/* Route::middleware('auth')
+->prefix('guest')
+->name('guest.')
+->group(function(){
+    Route::resource('projects', ProjectController::class)
+        ->parameters(['projects' => 'project:slug']);
+}); */
 
-Route::get('/dashboard', [AdminHomeController::class, 'index'])
+Route::get('/dashboard', [GuestHomeController::class, 'index'])
 ->middleware('auth')->name('dashboard');
 
 Route::middleware('auth')
 ->prefix('admin')
 ->name('admin.')
 ->group(function(){
-    Route::resource('projects', ProjectController::class);
+    Route::resource('projects', ProjectController::class)
+    /* ->parameters(['projects' => 'project:slug'])  */;
     Route::resource('types', TypeController::class);
     Route::resource('technologies', TechnologyController::class);
 });

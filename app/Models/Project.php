@@ -18,6 +18,9 @@ class Project extends Model
     public function getAbstract($max = 150){
         return substr($this->details, 0, $max) . "[...]";
     }
+    public function getAbstractIndex($max = 50){
+        return substr($this->details, 0, $max) . "...";
+    }
 
     //Relazioni
     public function type() {
