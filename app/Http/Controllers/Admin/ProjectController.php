@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
@@ -55,10 +56,6 @@ class ProjectController extends Controller
     {
        $data = $this->validation($request->all());
       /*  $data = $request->all(); */
-
-         /*    if(Arr::exists($data, 'thumbnail')) {
-            $path = Storage::put('', $data['thumbnail']);
-            $data['thumbnail'] = $path; */
             
             if (Arr::exists($data, 'thumbnail')) {
             $path = Storage::put('uploads/projects', $data['thumbnail']);
@@ -67,7 +64,7 @@ class ProjectController extends Controller
 
         $project = new Project;
         $project->fill($data);
-       
+        $project->slug = Project::getSlug($project->title);
         $project->save();
         if(Arr::exists($data, "technologies")) $project->technologies()->attach($data["technologies"]);
 
@@ -120,12 +117,8 @@ class ProjectController extends Controller
             $path = Storage::put('uploads/projects', $data['thumbnail']);
             $data['thumbnail'] = $path;
         }
-
+        
         $project->update($data);
-
-       
-
-
         return to_route("admin.projects.show", $project);
 
     }

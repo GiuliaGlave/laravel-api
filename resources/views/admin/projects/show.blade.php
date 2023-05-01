@@ -19,6 +19,9 @@
                 {{-- title --}}
                 <h5 class="card-title my-4"><strong>Titolo:</strong> {{ $project->title }}</h5>
           
+                {{-- slug --}}
+                <h5 class="card-title my-4"><strong>slug:</strong> {{ $project->slug }}</h5>
+          
                 {{-- thumbnail --}}
                 <div class="col col-6 p-0">
                     <img class="w-100" src="{{$project->getPlaceholder()}}" alt="anteprima">

@@ -37,7 +37,7 @@
                     <th scope="row">{{ $project->id }}</th>
                     {{-- title --}}
                     <td>{{ $project->title }}</td>
-                    {{-- slug --}}
+                    {{-- details --}}
                     <td>{{ $project->getAbstractIndex() }}</td>
                     {{-- types --}}
                     <td></strong><span class="badge ms-1" style="background-color:{{$project->type?->color}}"> {{ $project->type?->label }}</span></td>

@@ -36,7 +36,8 @@ Route::middleware('auth')
 ->name('admin.')
 ->group(function(){
     Route::resource('projects', ProjectController::class)
-    /* ->parameters(['projects' => 'project:slug'])  */;
+    ->parameters(['projects' => 'project:slug']);
+    
     Route::resource('types', TypeController::class);
     Route::resource('technologies', TechnologyController::class);
 });
